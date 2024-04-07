@@ -21,6 +21,26 @@ const FormMethod = ({ getParams, clearTable }) => {
                 placeholder: "Ingrese el valor de X0",
             },
         },
+        falsa_posicion: {
+            input1: {
+                label: "Valor: a",
+                placeholder: "Ingrese el valor de a",
+            },
+            input2: {
+                label: "Valor: b",
+                placeholder: "Ingrese el valor de b",
+            },
+        },
+        metodo: {
+            input1: {
+                label: "Valor: a",
+                placeholder: "Ingrese el valor de a",
+            },
+            input2: {
+                label: "Valor: b",
+                placeholder: "Ingrese el valor de b",
+            },
+        },
     };
 
     const [form, setForm] = useState({
@@ -38,8 +58,8 @@ const FormMethod = ({ getParams, clearTable }) => {
     const options = [
         { value: "biseccion", label: "Biseccion" },
         { value: "newton", label: "Newton Raphson" },
-        { value: "newton", label: "Falsa posicion" },
-        { value: "newton", label: "Metodo de la secante" },
+        { value: "falsa_posicion", label: "Falsa posicion" },
+        { value: "metodo", label: "Metodo de la secante" },
 
     ];
 

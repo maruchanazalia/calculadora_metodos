@@ -7,6 +7,10 @@ import { calcIterationsBiseccion } from "./services/biseccionService";
 import TableBiseccion from "./components/TableBiseccion";
 import { calcIterationsNewton } from "./services/newtonService";
 import TableNewton from "./components/TableNewton";
+import { calcIterationsFalsaPosicion } from "./services/falsa"
+import TableFalsa from "./components/TableFalsa";
+import { calcIterationsSecante } from "./services/secante"
+import TableSecante from './components/TableSecante'
 
 
 import { TableLagrange } from "./components/TableLagrange";
@@ -29,11 +33,30 @@ function App() {
         } else if (params.method.value === "newton") {
             setMethod(params.method.value);
             setIterations(calcIterationsNewton(params.equation, params.input1));
-        } else {
+        } else if (params.method.value === "falsa_posicion") {
+            setMethod(params.method.value);
+            setIterations(
+                calcIterationsBiseccion(
+                    params.equation,
+                    params.input1,
+                    params.input2
+                )
+            );
+        }else if (params.method.value === "metodo") {
+            setMethod(params.method.value);
+            setIterations(
+                calcIterationsSecante(
+                    params.equation,
+                    params.input1,
+                    params.input2
+                )
+            );
+        }  else {
             setIterations([]);
             setMethod(null);
         }
     };
+    
 
     const clearTable = () => {
         setIterations([]);
@@ -113,23 +136,32 @@ function App() {
 
             {!["lagrange", "aproximacion", "diferencias"].includes(method) && (
                 <section className="footer">
-                    <h1 className="title">Tabla</h1>
-                    <div className="content ">
-                        {method === "biseccion" && iterations.length > 0 && (
-                            <TableBiseccion iterations={iterations} />
-                        )}
+                <h1 className="title">Tabla</h1>
+                <div className="content ">
+                    {method === "biseccion" && iterations.length > 0 && (
+                        <TableBiseccion iterations={iterations} />
+                    )}
+            
+                    {method === "newton" && iterations.length > 0 && (
+                        <TableNewton iterations={iterations} />
+                    )}
+            
+                    {method === "falsa_posicion" && iterations.length > 0 && (
+                        <TableFalsa iterations={iterations} />
+                    )}
 
-                        {method === "newton" && iterations.length > 0 && (
-                            <TableNewton iterations={iterations} />
-                        )}
-
-                        {(iterations?.length == 0 || !method) && (
-                            <p>
-                                <strong>No se hay datos</strong>
-                            </p>
-                        )}
-                    </div>
-                </section>
+                    {method === "metodo" && iterations.length > 0 && (
+                        <TableSecante iterations={iterations} />
+                    )}
+            
+                    {(iterations?.length === 0 || !method) && (
+                        <p>
+                            <strong>No hay datos</strong>
+                        </p>
+                    )}
+                </div>
+            </section>
+            
             )}
         </div>
     );
